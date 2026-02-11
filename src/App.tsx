@@ -23,7 +23,7 @@ const ScreenManager: React.FC = () => {
 const App: React.FC = () => {
   return (
     <GameProvider>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
+      <div className="min-h-dvh bg-zinc-950 text-zinc-100 font-sans overflow-hidden">
         <ScreenManager />
       </div>
     </GameProvider>

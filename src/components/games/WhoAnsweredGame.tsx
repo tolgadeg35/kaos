@@ -22,7 +22,7 @@ export const WhoAnsweredGame: React.FC = () => {
       };
 
       return (
-          <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center">
+          <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center">
               <h2 className="text-3xl font-black text-white mb-2 text-center uppercase tracking-tight">{T.title}</h2>
               <p className="text-zinc-500 text-center mb-8 text-xs font-bold uppercase tracking-widest">
                   {T.subtitle}
@@ -64,7 +64,7 @@ export const WhoAnsweredGame: React.FC = () => {
 
       if (!currentTask) {
           return (
-             <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center text-center">
+             <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center text-center">
                  <h2 className="text-3xl font-black text-white mb-6">{T.done}</h2>
                  <button 
                     onClick={() => dispatch({ type: 'SUBMIT_INPUT', payload: null })}
@@ -97,7 +97,7 @@ export const WhoAnsweredGame: React.FC = () => {
       };
 
       return (
-          <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center">
+          <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center">
               <div className="text-center mb-6">
                  <span className="bg-red-900/30 text-red-400 border border-red-900/50 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
                     {T.remaining} {remainingCount}
@@ -212,7 +212,7 @@ const ResolutionView = () => {
 
     if (isInterstitial) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen bg-zinc-950 p-6 text-center animate-in fade-in duration-500 relative overflow-hidden">
+            <div className="flex flex-col items-center justify-center h-full bg-zinc-950 p-6 text-center animate-in fade-in duration-500 relative overflow-hidden">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px] animate-pulse"></div>
                 <div className="mb-8 relative z-10">
                     <div className="w-32 h-32 rounded-full border-4 border-red-500/20 bg-zinc-900 flex items-center justify-center">
@@ -243,19 +243,20 @@ const ResolutionView = () => {
     }
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-4 justify-start overflow-hidden">
-            <div className="text-center mb-6 pt-4">
+        <div className="flex flex-col h-full bg-zinc-950 p-4 justify-start overflow-hidden">
+            <div className="text-center mb-6 pt-4 shrink-0">
                 <div className="mb-2 text-[10px] font-black text-zinc-500 uppercase tracking-widest">Soru Sahibi: {author?.name}</div>
                 <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-md">
                     <h3 className="text-lg font-bold text-white leading-tight italic">"{question.text}"</h3>
                 </div>
             </div>
 
-            <p className="text-red-500 text-[10px] text-center mb-4 font-black uppercase tracking-[0.2em] animate-pulse">
+            <p className="text-red-500 text-[10px] text-center mb-4 font-black uppercase tracking-[0.2em] animate-pulse shrink-0">
                 {T.guessTitle}
             </p>
 
-            <div className="flex-1 overflow-y-auto space-y-6 pb-24 scrollbar-hide">
+            {/* Scrollable Area with bottom padding */}
+            <div className="flex-1 overflow-y-auto space-y-6 pb-32 scrollbar-hide">
                 {answers.map((ans) => {
                     const currentSelection = selections[ans.assignmentUniqueId];
                     return (
@@ -287,7 +288,7 @@ const ResolutionView = () => {
                 })}
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-zinc-950 border-t border-zinc-900">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-50">
                 <button 
                     onClick={handleConfirmGuesses}
                     disabled={!isAllSelected}
@@ -305,13 +306,13 @@ const WhoAnsweredSummaryView = ({ history }: { history: IHistoryRecord[] }) => {
     const T_COMMON = TEXTS[state.language].common;
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 overflow-hidden">
-             <div className="text-center pt-4 pb-8">
+        <div className="flex flex-col h-full bg-zinc-950 p-6 overflow-hidden">
+             <div className="text-center pt-4 pb-8 shrink-0">
                 <h2 className="text-4xl font-black text-white tracking-tighter uppercase">{T.results}</h2>
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.expert}</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-6 pb-24 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto space-y-6 pb-32 scrollbar-hide">
                 {history.map((record, idx) => {
                     const author = state.players.find(p => p.id === record.authorId);
                     const score = record.details.filter(d => d.isCorrect).length;
@@ -355,7 +356,7 @@ const WhoAnsweredSummaryView = ({ history }: { history: IHistoryRecord[] }) => {
                 })}
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
                 <button 
                     onClick={() => dispatch({ type: 'NEXT_GAME' })}
                     className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg text-lg transition-transform active:scale-95 uppercase tracking-widest">

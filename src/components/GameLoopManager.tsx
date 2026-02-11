@@ -62,7 +62,7 @@ export const GameLoopManager: React.FC = () => {
   const scoreLabel = TEXTS[state.language].common.score;
 
   return (
-    <div className="relative h-screen w-full bg-zinc-950">
+    <div className="relative h-dvh w-full bg-zinc-950 overflow-hidden">
         {/* Persistent Score Badge (Visible only during Input phases) */}
         {currentPlayer && state.phase !== GamePhase.RESOLUTION && (
             <div className="absolute top-4 left-4 z-50 pointer-events-none">
@@ -77,7 +77,7 @@ export const GameLoopManager: React.FC = () => {
         {ActiveGameComponent ? (
             <ActiveGameComponent />
         ) : (
-            <div className="flex flex-col items-center justify-center h-screen text-white p-6 text-center">
+            <div className="flex flex-col items-center justify-center h-full text-white p-6 text-center">
                 <h1 className="text-2xl font-bold mb-4">Oyun Bulunamadı</h1>
                 <button 
                 onClick={() => dispatch({type: 'NEXT_GAME'})}

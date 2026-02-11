@@ -30,7 +30,7 @@ export const LobbyScreen: React.FC = () => {
   const isGameEnabled = (id: MiniGameType) => state.selectedGameIds.includes(id);
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-950 text-white overflow-hidden relative">
+    <div className="flex flex-col h-dvh bg-zinc-950 text-white overflow-hidden relative">
       
       {/* Background Ambience */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -38,35 +38,43 @@ export const LobbyScreen: React.FC = () => {
           <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-orange-900/10 rounded-full blur-[80px]"></div>
       </div>
 
-      {/* Language Switcher */}
-      <div className="absolute top-4 right-4 z-50 flex gap-2">
-         <button 
-           onClick={() => dispatch({type: 'SET_LANGUAGE', payload: 'TR'})}
-           className={`px-3 py-1 rounded font-bold text-xs ${state.language === 'TR' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-zinc-500'}`}>
-           TR
-         </button>
-         <button 
-           onClick={() => dispatch({type: 'SET_LANGUAGE', payload: 'EN'})}
-           className={`px-3 py-1 rounded font-bold text-xs ${state.language === 'EN' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-zinc-500'}`}>
-           EN
-         </button>
-         <button 
-           onClick={() => dispatch({type: 'SET_LANGUAGE', payload: 'DE'})}
-           className={`px-3 py-1 rounded font-bold text-xs ${state.language === 'DE' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-zinc-500'}`}>
-           DE
-         </button>
+      {/* Language Switcher - Mobile Friendly Dropdown */}
+      <div className="absolute top-4 right-4 z-50">
+        <div className="relative">
+            <select 
+                value={state.language}
+                onChange={(e) => dispatch({type: 'SET_LANGUAGE', payload: e.target.value as any})}
+                className="appearance-none bg-zinc-900/80 border border-zinc-700 text-white text-xs font-bold py-2 pl-8 pr-8 rounded-full focus:outline-none focus:border-red-500 backdrop-blur-md shadow-lg"
+            >
+                <option value="TR">TR</option>
+                <option value="EN">EN</option>
+                <option value="DE">DE</option>
+            </select>
+            {/* Globe Icon */}
+            <div className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            {/* Chevron Icon */}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+        </div>
       </div>
 
       {/* Header */}
-      <div className="relative p-8 text-center space-y-1 z-10">
-        <h1 className="text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-red-500 to-red-900 drop-shadow-[0_2px_10px_rgba(220,38,38,0.5)]">
+      <div className="relative p-6 mt-6 text-center space-y-1 z-10 shrink-0">
+        <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-red-500 to-red-900 drop-shadow-[0_2px_10px_rgba(220,38,38,0.5)]">
           {T.lobby.title}
         </h1>
-        <p className="text-zinc-500 text-xs font-bold tracking-[0.5em] uppercase">{T.lobby.subtitle}</p>
+        <p className="text-zinc-500 text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase">{T.lobby.subtitle}</p>
       </div>
 
       {/* Tabs */}
-      <div className="relative z-10 flex justify-center gap-2 mb-6 px-6">
+      <div className="relative z-10 flex justify-center gap-2 mb-4 px-6 shrink-0">
         <button 
           onClick={() => setActiveTab('players')}
           className={`flex-1 max-w-[140px] py-3 rounded-xl font-bold text-sm tracking-wide transition-all border ${activeTab === 'players' ? 'bg-red-700 border-red-500 text-white shadow-[0_0_15px_rgba(220,38,38,0.4)]' : 'bg-zinc-900/50 border-zinc-800 text-zinc-500 hover:bg-zinc-800'}`}>
@@ -81,8 +89,8 @@ export const LobbyScreen: React.FC = () => {
         </button>
       </div>
 
-      {/* Content Area */}
-      <div className="relative z-10 flex-1 overflow-y-auto px-6 pb-28 scrollbar-hide">
+      {/* Content Area - Scrollable with bottom padding to avoid button overlap */}
+      <div className="relative z-10 flex-1 overflow-y-auto px-6 pb-40 scrollbar-hide">
         
         {activeTab === 'players' && (
           <div className="max-w-md mx-auto space-y-4">
@@ -167,8 +175,8 @@ export const LobbyScreen: React.FC = () => {
         )}
       </div>
 
-      {/* Start Button Area */}
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
+      {/* Start Button Area - Fixed with gradient */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
         <button
           onClick={() => dispatch({ type: 'START_GAME' })}
           disabled={state.players.length < 3}
