@@ -14,7 +14,7 @@ export const FinalScoreScreen: React.FC = () => {
   const winners = sortedPlayers.filter(p => p.score === highestScore);
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-950 overflow-hidden relative">
+    <div className="flex flex-col h-dvh bg-zinc-950 overflow-hidden relative">
       
       {/* Content Area - Scrollable */}
       <div className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto scrollbar-hide px-6 pt-6 pb-40">
