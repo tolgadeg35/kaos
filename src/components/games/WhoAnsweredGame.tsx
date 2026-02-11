@@ -22,7 +22,7 @@ export const WhoAnsweredGame: React.FC = () => {
       };
 
       return (
-          <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center">
+          <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center overflow-hidden">
               <h2 className="text-3xl font-black text-white mb-2 text-center uppercase tracking-tight">{T.title}</h2>
               <p className="text-zinc-500 text-center mb-8 text-xs font-bold uppercase tracking-widest">
                   {T.subtitle}
@@ -64,7 +64,7 @@ export const WhoAnsweredGame: React.FC = () => {
 
       if (!currentTask) {
           return (
-             <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center text-center">
+             <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center text-center overflow-hidden">
                  <h2 className="text-3xl font-black text-white mb-6">{T.done}</h2>
                  <button 
                     onClick={() => dispatch({ type: 'SUBMIT_INPUT', payload: null })}
@@ -97,7 +97,7 @@ export const WhoAnsweredGame: React.FC = () => {
       };
 
       return (
-          <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center">
+          <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center overflow-hidden">
               <div className="text-center mb-6">
                  <span className="bg-red-900/30 text-red-400 border border-red-900/50 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
                     {T.remaining} {remainingCount}
@@ -243,7 +243,7 @@ const ResolutionView = () => {
     }
 
     return (
-        <div className="flex flex-col h-full bg-zinc-950 p-4 justify-start overflow-hidden">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-4 justify-start overflow-hidden">
             <div className="text-center mb-6 pt-4 shrink-0">
                 <div className="mb-2 text-[10px] font-black text-zinc-500 uppercase tracking-widest">Soru Sahibi: {author?.name}</div>
                 <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-md">
@@ -306,13 +306,14 @@ const WhoAnsweredSummaryView = ({ history }: { history: IHistoryRecord[] }) => {
     const T_COMMON = TEXTS[state.language].common;
 
     return (
-        <div className="flex flex-col h-full bg-zinc-950 p-6 overflow-hidden">
-             <div className="text-center pt-4 pb-8 shrink-0">
+        <div className="flex flex-col h-dvh bg-zinc-950 relative overflow-hidden">
+             <div className="shrink-0 pt-6 px-6 pb-4 text-center z-10">
                 <h2 className="text-4xl font-black text-white tracking-tighter uppercase">{T.results}</h2>
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.expert}</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-6 pb-32 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-6 pb-32 scrollbar-hide z-0">
+                <div className="space-y-6">
                 {history.map((record, idx) => {
                     const author = state.players.find(p => p.id === record.authorId);
                     const score = record.details.filter(d => d.isCorrect).length;
@@ -354,9 +355,10 @@ const WhoAnsweredSummaryView = ({ history }: { history: IHistoryRecord[] }) => {
                         </div>
                     );
                 })}
+                </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
                 <button 
                     onClick={() => dispatch({ type: 'NEXT_GAME' })}
                     className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg text-lg transition-transform active:scale-95 uppercase tracking-widest">

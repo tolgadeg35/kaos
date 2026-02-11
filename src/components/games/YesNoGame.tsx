@@ -46,7 +46,7 @@ export const YesNoGame: React.FC = () => {
       };
 
       return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 overflow-hidden">
           <div className="flex-1 flex flex-col justify-center items-center text-center">
             <div className="mb-8">
                  <span className="text-red-500 font-bold tracking-[0.3em] text-xs uppercase animate-pulse">{T.beHonest}</span>
@@ -99,7 +99,7 @@ export const YesNoGame: React.FC = () => {
       };
 
       return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 overflow-hidden">
             <div className="flex-1 flex flex-col justify-center items-center text-center">
                 <div className="mb-4">
                     <span className="text-[10px] font-black text-red-500 uppercase tracking-widest border border-red-500/30 px-3 py-1 rounded-full">{T.targetPlayer}</span>
@@ -174,56 +174,58 @@ const YesNoSummaryView = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 overflow-hidden">
-            <div className="text-center pt-4 pb-8">
+        <div className="flex flex-col h-dvh bg-zinc-950 relative overflow-hidden">
+            <div className="shrink-0 pt-6 px-6 pb-4 text-center z-10">
                 <h2 className="text-4xl font-black text-white tracking-tighter uppercase mb-1">{T.resultsTitle}</h2>
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.resultsSubtitle}</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-4 pb-24 scrollbar-hide">
-                {results.map((r, idx) => (
-                    <div key={r.id} className={`p-4 rounded-xl border-l-4 ${r.isCorrect ? 'bg-zinc-900/80 border-l-green-500 border-y border-r border-y-zinc-800 border-r-zinc-800' : 'bg-zinc-900/80 border-l-red-500 border-y border-r border-y-zinc-800 border-r-zinc-800'}`}>
-                        
-                        <div className="text-center mb-4 px-2">
-                             <p className="text-zinc-300 font-medium italic text-sm">"{r.question}"</p>
-                        </div>
-
-                        <div className="flex flex-col gap-2 mb-4">
-                            <div className="flex items-center justify-between bg-black/40 p-3 rounded-lg border border-white/5">
-                                <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
-                                    {r.target?.name} {T.said}
-                                </span>
-                                <span className={`text-lg font-black ${r.actual ? 'text-green-500' : 'text-red-500'}`}>
-                                    {r.actual ? T_COMMON.yes : T_COMMON.no}
-                                </span>
+            <div className="flex-1 overflow-y-auto px-6 pb-32 scrollbar-hide z-0">
+                <div className="space-y-4">
+                    {results.map((r, idx) => (
+                        <div key={r.id} className={`p-4 rounded-xl border-l-4 ${r.isCorrect ? 'bg-zinc-900/80 border-l-green-500 border-y border-r border-y-zinc-800 border-r-zinc-800' : 'bg-zinc-900/80 border-l-red-500 border-y border-r border-y-zinc-800 border-r-zinc-800'}`}>
+                            
+                            <div className="text-center mb-4 px-2">
+                                <p className="text-zinc-300 font-medium italic text-sm">"{r.question}"</p>
                             </div>
 
-                            <div className="flex items-center justify-between bg-black/40 p-3 rounded-lg border border-white/5">
-                                <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
-                                    {r.guesser?.name} {T.guess}
-                                </span>
-                                <span className={`text-lg font-black ${r.guess ? 'text-green-500' : 'text-red-500'}`}>
-                                    {r.guess ? T_COMMON.yes : T_COMMON.no}
-                                </span>
+                            <div className="flex flex-col gap-2 mb-4">
+                                <div className="flex items-center justify-between bg-black/40 p-3 rounded-lg border border-white/5">
+                                    <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                                        {r.target?.name} {T.said}
+                                    </span>
+                                    <span className={`text-lg font-black ${r.actual ? 'text-green-500' : 'text-red-500'}`}>
+                                        {r.actual ? T_COMMON.yes : T_COMMON.no}
+                                    </span>
+                                </div>
+
+                                <div className="flex items-center justify-between bg-black/40 p-3 rounded-lg border border-white/5">
+                                    <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                                        {r.guesser?.name} {T.guess}
+                                    </span>
+                                    <span className={`text-lg font-black ${r.guess ? 'text-green-500' : 'text-red-500'}`}>
+                                        {r.guess ? T_COMMON.yes : T_COMMON.no}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="text-center">
+                                {r.isCorrect ? (
+                                    <span className="inline-block px-4 py-1 bg-green-900/30 text-green-400 text-[10px] font-black uppercase tracking-widest rounded border border-green-900/50">
+                                        {T.knew}
+                                    </span>
+                                ) : (
+                                    <span className="inline-block px-4 py-1 bg-red-900/30 text-red-400 text-[10px] font-black uppercase tracking-widest rounded border border-red-900/50">
+                                        {T.failed}
+                                    </span>
+                                )}
                             </div>
                         </div>
-
-                        <div className="text-center">
-                            {r.isCorrect ? (
-                                <span className="inline-block px-4 py-1 bg-green-900/30 text-green-400 text-[10px] font-black uppercase tracking-widest rounded border border-green-900/50">
-                                    {T.knew}
-                                </span>
-                            ) : (
-                                <span className="inline-block px-4 py-1 bg-red-900/30 text-red-400 text-[10px] font-black uppercase tracking-widest rounded border border-red-900/50">
-                                    {T.failed}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
                 <button 
                     onClick={handleFinish}
                     className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg text-lg transition-transform active:scale-95 uppercase tracking-widest">

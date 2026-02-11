@@ -47,7 +47,7 @@ export const SuperlativesGame: React.FC = () => {
       }
 
       return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 overflow-hidden">
            <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
                 <div className="mb-8 text-center">
                      <div className="inline-block border border-red-500/30 text-red-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
@@ -103,7 +103,7 @@ export const SuperlativesGame: React.FC = () => {
 
       if (!myTask) {
            return (
-             <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center text-center">
+             <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center text-center">
                  <h2 className="text-xl text-white font-bold">{T_COMMON.loading}</h2>
                  <button onClick={() => dispatch({type: 'SUBMIT_INPUT', payload: null})} className="bg-zinc-700 p-4 rounded mt-4">{T_COMMON.skip}</button>
              </div>
@@ -133,7 +133,7 @@ export const SuperlativesGame: React.FC = () => {
       }
 
       return (
-          <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center text-center">
+          <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center text-center overflow-hidden">
               <h2 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mb-6">{T.evaluate}</h2>
               
               <div className="bg-zinc-900/80 p-8 rounded-2xl border border-zinc-800 mb-8 shadow-2xl relative overflow-hidden">
@@ -194,13 +194,14 @@ const SuperlativesSummaryView = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 overflow-hidden">
-             <div className="text-center pt-4 pb-8">
+        <div className="flex flex-col h-dvh bg-zinc-950 relative overflow-hidden">
+             <div className="shrink-0 pt-6 px-6 pb-4 text-center z-10">
                 <h2 className="text-4xl font-black text-white tracking-tighter uppercase">{T.verdictTitle}</h2>
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.verdictSubtitle}</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-4 pb-24 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-6 pb-32 scrollbar-hide z-0">
+                <div className="space-y-4">
                 {results.map((r) => {
                      let sentence;
                      if (state.language === 'EN') {
@@ -248,9 +249,10 @@ const SuperlativesSummaryView = () => {
 
                     </div>
                 )})}
+                </div>
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
                 <button 
                     onClick={handleFinish}
                     className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg text-lg transition-transform active:scale-95 uppercase tracking-widest">

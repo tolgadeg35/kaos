@@ -15,24 +15,25 @@ export const InstructionScreen: React.FC = () => {
   if (!currentGame) return null;
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-950 text-white p-6 relative overflow-hidden">
+    <div className="flex flex-col h-dvh bg-zinc-950 text-white relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-[-20%] right-[-20%] w-[500px] h-[500px] bg-red-800/10 rounded-full blur-[100px]"></div>
-      <div className="absolute bottom-[-20%] left-[-20%] w-[500px] h-[500px] bg-zinc-800/20 rounded-full blur-[100px]"></div>
+      <div className="absolute top-[-20%] right-[-20%] w-[500px] h-[500px] bg-red-800/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] left-[-20%] w-[500px] h-[500px] bg-zinc-800/20 rounded-full blur-[100px] pointer-events-none"></div>
 
-      <div className="flex-1 flex flex-col justify-center items-center text-center z-10">
-        <div className="mb-8 px-4 py-1.5 bg-red-950/50 border border-red-800/50 rounded-full text-red-400 text-[10px] font-black tracking-[0.2em] uppercase shadow-lg">
+      {/* Scrollable Content Area */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-6 py-8 pb-40 flex flex-col items-center text-center z-10">
+        <div className="mb-6 px-4 py-1.5 bg-red-950/50 border border-red-800/50 rounded-full text-red-400 text-[10px] font-black tracking-[0.2em] uppercase shadow-lg shrink-0">
             {T.nextGame}
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-black mb-8 leading-tight tracking-tight text-white drop-shadow-xl">
+        <h1 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight text-white drop-shadow-xl shrink-0">
           {currentGame.name}
         </h1>
         
-        <div className="bg-zinc-900/80 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-2xl max-w-md w-full relative overflow-hidden">
+        <div className="bg-zinc-900/80 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 shadow-2xl max-w-md w-full relative overflow-hidden shrink-0">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-orange-600"></div>
             
-            <p className="text-xl leading-relaxed font-medium text-zinc-200 mb-6">
+            <p className="text-lg md:text-xl leading-relaxed font-medium text-zinc-200 mb-6">
             {currentGame.description}
             </p>
 
@@ -54,16 +55,19 @@ export const InstructionScreen: React.FC = () => {
             )}
         </div>
         
-         <p className="mt-8 text-zinc-500 text-xs font-bold uppercase tracking-widest animate-pulse">
+         <p className="mt-8 text-zinc-500 text-xs font-bold uppercase tracking-widest animate-pulse shrink-0">
             {T.voiceHint}
         </p>
       </div>
 
-      <button 
-        onClick={() => dispatch({ type: 'NEXT_PHASE' })}
-        className="w-full bg-red-600 hover:bg-red-500 text-white font-black py-4 rounded-xl text-lg shadow-[0_0_20px_rgba(220,38,38,0.4)] z-10 transition-transform active:scale-95 tracking-widest uppercase">
-        {T.startButton}
-      </button>
+      {/* Fixed Bottom Button */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
+        <button 
+            onClick={() => dispatch({ type: 'NEXT_PHASE' })}
+            className="w-full bg-red-600 hover:bg-red-500 text-white font-black py-4 rounded-xl text-lg shadow-[0_0_20px_rgba(220,38,38,0.4)] transition-transform active:scale-95 tracking-widest uppercase">
+            {T.startButton}
+        </button>
+      </div>
     </div>
   );
 };

@@ -28,7 +28,7 @@ export const WagerGame: React.FC = () => {
       };
 
       return (
-          <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center text-center">
+          <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center text-center overflow-hidden">
               <h2 className="text-3xl font-black text-white mb-10 tracking-tight uppercase">{T.makeChoice}</h2>
               
               <div className="flex flex-col gap-6">
@@ -74,7 +74,7 @@ export const WagerGame: React.FC = () => {
       };
 
       return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center overflow-hidden">
              <div className="text-center mb-8">
                  <span className="text-[10px] font-black text-green-500 uppercase tracking-widest border border-green-900/50 bg-green-900/20 px-3 py-1 rounded-full">{T.target}</span>
                  <h1 className="text-4xl font-black text-white mt-4 mb-1">{targetPlayer?.name}</h1>
@@ -171,13 +171,14 @@ const WagerSummaryView = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 overflow-hidden">
-             <div className="text-center pt-4 pb-8">
+        <div className="flex flex-col h-dvh bg-zinc-950 relative overflow-hidden">
+             <div className="shrink-0 pt-6 px-6 pb-4 text-center z-10">
                 <h2 className="text-4xl font-black text-white tracking-tighter uppercase">{T.results}</h2>
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.winLose}</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-4 pb-24 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-6 pb-32 scrollbar-hide z-0">
+                <div className="space-y-4">
                 {results.map((r, idx) => (
                     <div key={idx} className={`relative p-5 rounded-xl border-l-4 ${r.isWin ? 'bg-zinc-900 border-l-green-600' : 'bg-zinc-900 border-l-red-600'} shadow-lg`}>
                         <div className="flex justify-between items-center mb-4 border-b border-zinc-800 pb-2">
@@ -221,9 +222,10 @@ const WagerSummaryView = () => {
                         </div>
                     </div>
                 ))}
+                </div>
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
                 <button 
                     onClick={handleFinish}
                     className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg text-lg transition-transform active:scale-95 uppercase tracking-widest">

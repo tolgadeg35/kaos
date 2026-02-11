@@ -37,7 +37,7 @@ export const WhoDoYouKnowGame: React.FC = () => {
       };
 
       return (
-          <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center">
+          <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center overflow-hidden">
               <div className="text-center mb-8">
                   <span className="text-red-500 font-black tracking-[0.3em] uppercase text-xs border border-red-500/30 px-3 py-1 rounded-full">{T.target}</span>
                   <h1 className="text-5xl font-black text-white mt-4">{target.name}</h1>
@@ -80,7 +80,7 @@ export const WhoDoYouKnowGame: React.FC = () => {
       };
 
       return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center overflow-hidden">
             <div className="text-center mb-6">
                 <span className="text-orange-500 font-black tracking-[0.2em] uppercase text-[10px] bg-orange-950/30 px-2 py-1 rounded">{T.secretQuestion}</span>
                 <div className="mt-4 bg-zinc-900/50 p-6 rounded-xl border border-white/5 shadow-xl">
@@ -143,7 +143,7 @@ const ResolutionView = ({ assignments }: { assignments: IGame4Pairing[] }) => {
 
     if (isInterstitial) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen bg-zinc-950 p-6 text-center animate-in fade-in duration-500 relative overflow-hidden">
+            <div className="flex flex-col items-center justify-center h-dvh bg-zinc-950 p-6 text-center animate-in fade-in duration-500 relative overflow-hidden">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px] animate-pulse"></div>
                 <div className="mb-8 relative z-10">
                     <div className="w-32 h-32 rounded-full border-4 border-red-500/20 bg-zinc-900 flex items-center justify-center">
@@ -190,7 +190,7 @@ const ResolutionView = ({ assignments }: { assignments: IGame4Pairing[] }) => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 justify-center text-center">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 justify-center text-center overflow-hidden">
             <h2 className="text-red-600 font-black uppercase tracking-[0.3em] text-sm mb-6 animate-pulse">{T.courtTime}</h2>
             
             <div className="bg-zinc-900/80 p-6 rounded-xl border border-zinc-800 mb-4 shadow-lg">
@@ -238,13 +238,14 @@ const WhoDoYouKnowSummaryView = ({ assignments, verdictHistory }: { assignments:
     };
 
     return (
-        <div className="flex flex-col h-screen bg-zinc-950 p-6 overflow-hidden">
-             <div className="text-center pt-4 pb-8">
+        <div className="flex flex-col h-dvh bg-zinc-950 relative overflow-hidden">
+             <div className="shrink-0 pt-6 px-6 pb-4 text-center z-10">
                 <h2 className="text-4xl font-black text-white tracking-tighter uppercase">{T.results}</h2>
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.report}</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-6 pb-20 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-6 pb-32 scrollbar-hide z-0">
+                <div className="space-y-6">
                 {assignments.map((assignment, idx) => {
                     const uniqueId = `${assignment.authorId}-${assignment.targetId}`;
                     const verdictRec = verdictHistory.find(v => v.assignmentId === uniqueId);
@@ -310,9 +311,10 @@ const WhoDoYouKnowSummaryView = ({ assignments, verdictHistory }: { assignments:
                         </div>
                     );
                 })}
+                </div>
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
                 <button 
                     onClick={() => dispatch({ type: 'NEXT_GAME' })}
                     className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg text-lg transition-transform active:scale-95 uppercase tracking-widest">

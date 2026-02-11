@@ -80,7 +80,7 @@ export const TriviaGame: React.FC = () => {
           };
 
           return (
-              <div className="flex flex-col h-full p-6 justify-center items-center text-center bg-zinc-950 animate-in fade-in zoom-in duration-300">
+              <div className="flex flex-col h-dvh p-6 justify-center items-center text-center bg-zinc-950 animate-in fade-in zoom-in duration-300 overflow-hidden">
                   <div className="mb-8">
                       {feedback.isCorrect ? (
                           <div className="w-32 h-32 bg-green-500/10 rounded-full flex items-center justify-center mx-auto border-4 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
@@ -123,8 +123,8 @@ export const TriviaGame: React.FC = () => {
       if (!activeQuestion) return <div>{T_COMMON.error}</div>;
 
       return (
-        <div className="flex flex-col h-full bg-zinc-950 p-6 justify-center">
-            <div className="flex justify-between items-center mb-8 border-b border-zinc-800 pb-4">
+        <div className="flex flex-col h-dvh bg-zinc-950 p-6 overflow-hidden">
+            <div className="flex justify-between items-center mb-8 border-b border-zinc-800 pb-4 shrink-0">
                 <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">
                     {T.questionCount} {currentQIndex + 1} / {answerQueue.length}
                 </span>
@@ -174,7 +174,7 @@ export const TriviaGame: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-zinc-950 p-6">
+    <div className="flex flex-col h-dvh bg-zinc-950 p-6 overflow-hidden">
        <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
             <h2 className="text-3xl font-black text-white mb-2 text-center uppercase tracking-tight">{T.prepareTitle}</h2>
             <p className="text-zinc-500 text-center mb-8 text-xs font-bold uppercase tracking-widest">
@@ -280,13 +280,14 @@ const TriviaSummaryView = () => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-zinc-950 p-6 overflow-hidden">
-             <div className="text-center mb-6 pt-4 shrink-0">
+        <div className="flex flex-col h-dvh bg-zinc-950 relative overflow-hidden">
+             <div className="shrink-0 pt-6 px-6 pb-4 text-center z-10">
                  <h2 className="text-4xl font-black text-white tracking-tighter uppercase">{T.roundResult}</h2>
                  <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{T.strategy}</p>
              </div>
 
-             <div className="flex-1 overflow-y-auto space-y-4 pb-32 scrollbar-hide">
+             <div className="flex-1 overflow-y-auto px-6 pb-32 scrollbar-hide z-0">
+                 <div className="space-y-4">
                  {fullResults.map((item, idx) => (
                      <div key={idx} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-lg">
                          <div className="bg-zinc-800/50 p-3 flex justify-between items-center border-b border-zinc-700/50">
@@ -313,12 +314,13 @@ const TriviaSummaryView = () => {
                          </div>
                      </div>
                  ))}
+                 </div>
              </div>
 
-             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent">
+             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent z-20">
                 <button 
                     onClick={handleFinish}
-                    className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg mt-auto transition-transform active:scale-95 uppercase tracking-widest">
+                    className="w-full bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest">
                     {T.nextGame}
                 </button>
              </div>
