@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+🌪️ KAOS - Local Multiplayer Party Game
+Kaos, arkadaş grupları için tasarlanmış, tek bir telefon veya cihaz üzerinden elden ele (pass-and-play) oynanan asenkron bir web parti oyunudur.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Oyun, oyuncuların birbirleri hakkında girdiği verileri (sorular, cevaplar, tahminler) toplayıp sonraki turlarda onlara karşı kullanarak masadaki sosyal etkileşimi, dedikoduyu ve rekabeti en üst düzeye çıkarmayı hedefler. Oyunun en büyük kuralı: Bütün oyun boyunca kimse birbirinin puanını göremez! Kazanan, ancak en sondaki büyük yüzleşmeden sonra belli olur.
 
-Currently, two official plugins are available:
+✨ Temel Özellikler
+Tek Cihaz, Çok Oyuncu: En az 3 kişiyle, sadece tek bir akıllı telefon elden ele dolaştırılarak oynanır.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Asenkron Veri Döngüsü: Bir turda verilen cevaplar, bir sonraki turda başka oyuncuların önüne soru veya bahis olarak çıkar.
 
-## React Compiler
+Gizlilik ve Geçiş Ekranları: Sıra diğer oyuncuya geçerken çıkan "Telefonu [Oyuncu İsmi]'ne ver" ara ekranları sayesinde herkesin verisi ve puanı gizli kalır.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Özelleştirilebilir Lobi: Oyun başında istenmeyen mini oyunlar kapatılabilir ve oyuncu isimleri sisteme kolayca girilebilir.
 
-## Expanding the ESLint configuration
+Dinamik Eğitim: Her mini oyun başlamadan önce oyunun kuralları ekrana yansır ve bir oyuncu tarafından gruba sesli olarak okunur.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🎮 Mini Oyunlar ve Kurallar
+Kaos, her biri farklı bir sosyal dinamiği test eden 7 farklı oyun modundan oluşur.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Evet / Hayır
+🎯 Amacı ve Kurallar: Hızlı bir ısındırma turudur. İlk aşamada her oyuncu, sistemin kendisine sorduğu rastgele bir "Evet/Hayır" sorusunu kendi adına cevaplar. İkinci aşamada, bu sorular rastgele seçilen bir rakibe yöneltilir ve rakibin, asıl oyuncunun ne cevap verdiğini tahmin etmesi istenir.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🏆 Puanlama: Rakip oyuncu doğru tahmin yaparsa, hem sorunun asıl sahibi hem de tahmini yapan rakip puan kazanır.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Enleri Seç
+🎯 Amacı ve Kurallar: Gruptaki dinamikleri ve düşünceleri ortaya çıkaran bir dedikodu modudur. Oyuncu, karşısına çıkan rastgele bir rakip için şu cümleyi doldurur: "{Rakip} bu gruptaki en [.......] kişidir." Sonraki turda bu iddia, hedef kişi dışındaki tamamen bağımsız bir oyuncuya gösterilir ve onaylanması istenir.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🏆 Puanlama: Bağımsız oyuncu bu iddiayı onaylarsa ("Evet, öyledir" derse), tahmini yapan ilk oyuncu puan kazanır.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. Bilgi Yarışması
+🎯 Amacı ve Kurallar: Herkesin genel kültürünü veya grup içi bilgisini test eden bir moddur. Sırası gelen oyuncu, cevabı "Evet" veya "Hayır" olan bir soru yazar. Sonraki turda diğer tüm oyuncular bu soruyu cevaplar. Bu döngü, her oyuncu bir kez soru sorana kadar devam eder.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🏆 Puanlama: * Soruyu doğru cevaplayan tüm oyuncular puan alır.
+
+Soruyu Soran Kişinin Puanı: Soruyu soran kişi, sorunun zorluk dengesine göre puan alır:
+
+Kimse bilemezse veya herkes bilirse: -1 Puan (Çok zor veya çok kolay)
+
+Azınlık bilirse: +1 Puan
+
+Çoğunluk bilirse: +2 Puan (Mükemmel denge)
+
+4. Kimi Tanıyorsun
+🎯 Amacı ve Kurallar: İşlerin kişiselleştiği aşamadır. Her oyuncu, belirlenen rastgele bir rakip hakkında açık uçlu bir soru yazar. İkinci turda, her oyuncu kendi yazmadığı ve kendisiyle ilgili olmayan rastgele bir soruyu okuyup açık uçlu olarak yanıtlar. Üçüncü (yüzleşme) turunda ise hedef oyuncu, kendisi hakkında yazılan soruyu ve cevabı okuyarak durumu değerlendirir ve 3 seçenekten birini seçer: Doğru, Yanlış veya Basit Soru.
+
+🏆 Puanlama: * Doğru: Soruyu soran ve cevaplayan puan alır.
+
+Yanlış: Kimse puan almaz.
+
+Basit Soru: Soru çok kolaysa, soruyu soran cezalandırılır ve sadece soruyu cevaplayan puan alır.
+
+5. Cevaplayan Kim
+🎯 Amacı ve Kurallar: Oyuncuların birbirlerinin düşünce ve yazım tarzlarını ne kadar tanıdığını ölçer. İlk aşamada herkes kendi hakkında açık uçlu bir soru yazar. İkinci aşamada her oyuncuya, gruptaki kişi sayısına bağlı olarak 2 veya 3 farklı kişinin sorusu gelir ve bu soruları isimsiz olarak cevaplarlar. Son aşamada soru sahipleri, kendi sorularına gelen bu rastgele cevapları okur ve hangi cevabın kime ait olduğunu eşleştirmeye çalışır.
+
+🏆 Puanlama: Soru sahibi, doğru eşleştirdiği her oyuncu için 1 puan kazanır.
+
+6. Bahis
+🎯 Amacı ve Kurallar: Puan tablosunu altüst edebilecek risk modudur. İlk aşamada herkese zorlu bir ikilem sorulur (Örn: Gazoz mu, Kola mı? veya 1 yıl makarna yemek mi, 5 yıl tat almamak mı?). İkinci turda, oyunculara başka birinin ikilemi gösterilir. Oyuncular, hedef kişinin ne seçeceğini tahmin etmek için kendi mevcut puanlarından istedikleri kadarını riske atarak bahis oynarlar.
+
+🏆 Puanlama: Doğru tahmin edenler yatırdıkları puanı ikiye katlar. Yanlış tahmin edenler yatırdıkları tüm puanı kaybeder.
+
+7. Hileci Oylaması (Büyük Final)
+🎯 Amacı ve Kurallar: Oyunun başından beri gizli tutulan puanların açıklanmasından hemen önceki son kaostur. Tüm oyunlar bittikten sonra, herkes haksız yere veya çok fazla puan kazandığını düşündüğü bir kişiyi (veya en büyük rakibini) gizlice oylar.
+
+🏆 Puanlama (Ceza): En çok oyu alan kişi (veya kişiler) hedefe oturur. Bu oyuncuların sahip olduğu her 3 puan için 1 puanları silinir. (Örneğin: 9 puanı varsa 6'ya düşer, 5 puanı varsa 4'e düşer, 2 puanı varsa silinmez ve 2 kalır).
