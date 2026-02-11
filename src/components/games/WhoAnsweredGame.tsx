@@ -8,7 +8,6 @@ export const WhoAnsweredGame: React.FC = () => {
   const { state, dispatch } = useGame();
   const T = TEXTS[state.language].games.whoAnswered;
   const T_COMMON = TEXTS[state.language].common;
-  const T_INTER = TEXTS[state.language].interstitial;
   
   const currentPlayerId = state.roundOrder[state.currentPlayerIndex];
   
@@ -185,7 +184,7 @@ const ResolutionView = () => {
 
     const handleConfirmGuesses = () => {
         let correctCount = 0;
-        const details = [];
+        const details: any[] = [];
 
         for (const ans of answers) {
             const guessId = selections[ans.assignmentUniqueId];

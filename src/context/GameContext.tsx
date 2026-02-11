@@ -5,8 +5,7 @@ import {
   ScreenType, 
   GamePhase, 
   MiniGameType,
-  IGameContext,
-  Language
+  IGameContext
 } from '../types';
 import { DEFAULT_PLAYERS, MINI_GAMES } from '../constants';
 import { shuffle } from '../services/matchingService';

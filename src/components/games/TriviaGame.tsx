@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGame } from '../../context/GameContext';
 import { GamePhase } from '../../types';
 import { TEXTS } from '../../data/locales';

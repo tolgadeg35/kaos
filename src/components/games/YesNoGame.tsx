@@ -22,7 +22,7 @@ export const YesNoGame: React.FC = () => {
       return QUESTIONS[qIndex];
   };
 
-  const [selectedOption, setSelectedOption] = useState<boolean | null>(null);
+  const [, setSelectedOption] = useState<boolean | null>(null);
 
   if (!currentPlayer) return null;
 
