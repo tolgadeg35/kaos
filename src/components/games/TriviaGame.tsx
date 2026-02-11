@@ -236,13 +236,13 @@ const TriviaSummaryView = () => {
         let points = 0;
         let reason = "";
 
-        if (totalVoters === 0) { points = 0; reason = "No Answers"; } 
-        else if (correctCount === 0) { points = -1; reason = "No One Knew (-1)"; } 
-        else if (correctCount === totalVoters) { points = -1; reason = "Everyone Knew (-1)"; } 
+        if (totalVoters === 0) { points = 0; reason = T.results.noAnswers; } 
+        else if (correctCount === 0) { points = -1; reason = T.results.noOne; } 
+        else if (correctCount === totalVoters) { points = -1; reason = T.results.everyone; } 
         else {
             const ratio = correctCount / totalVoters;
-            if (ratio > 0.5) { points = 2; reason = "Majority Knew (+2)"; } 
-            else { points = 1; reason = "Minority Knew (+1)"; }
+            if (ratio > 0.5) { points = 2; reason = T.results.majority; } 
+            else { points = 1; reason = T.results.minority; }
         }
         return { authorId: r.authorId, points, reason };
     });

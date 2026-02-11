@@ -249,6 +249,7 @@ const WhoDoYouKnowSummaryView = ({ assignments, verdictHistory }: { assignments:
                     const uniqueId = `${assignment.authorId}-${assignment.targetId}`;
                     const verdictRec = verdictHistory.find(v => v.assignmentId === uniqueId);
                     const verdictInfo = getVerdictDetails(verdictRec?.verdict || '');
+                    const verdict = verdictRec?.verdict || '';
                     
                     const question = state.gameData.rounds.find(r => r.pairingId === uniqueId)?.question;
                     const answer = state.gameData.secondRoundData?.find(r => r.pairingId === uniqueId)?.answer;
@@ -256,6 +257,15 @@ const WhoDoYouKnowSummaryView = ({ assignments, verdictHistory }: { assignments:
                     const author = state.players.find(p => p.id === assignment.authorId);
                     const target = state.players.find(p => p.id === assignment.targetId);
                     const reader = state.players.find(p => p.id === assignment.readerId);
+
+                    let authorPoints = 0;
+                    let readerPoints = 0;
+                    if (verdict === 'CORRECT') {
+                        authorPoints = 1;
+                        readerPoints = 1;
+                    } else if (verdict === 'BASIC') {
+                        readerPoints = 1;
+                    }
 
                     return (
                         <div key={idx} className={`relative rounded-xl border-l-4 ${verdictInfo.border} ${verdictInfo.bg} bg-zinc-900/50 shadow-lg`}>
@@ -282,6 +292,18 @@ const WhoDoYouKnowSummaryView = ({ assignments, verdictHistory }: { assignments:
                                             <span className="text-[10px] font-bold text-zinc-500 uppercase">{T.answerer} ({reader?.name})</span>
                                         </div>
                                         <p className="text-white font-bold text-sm">"{answer}"</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center justify-center gap-4 mt-2 pt-3 border-t border-white/10">
+                                    <div className="text-center">
+                                        <div className="text-[9px] text-zinc-500 font-bold uppercase">{author?.name}</div>
+                                        <div className={`font-black ${authorPoints > 0 ? 'text-green-500' : 'text-zinc-600'}`}>+{authorPoints}</div>
+                                    </div>
+                                    <div className="h-6 w-px bg-zinc-800"></div>
+                                    <div className="text-center">
+                                        <div className="text-[9px] text-zinc-500 font-bold uppercase">{reader?.name}</div>
+                                        <div className={`font-black ${readerPoints > 0 ? 'text-green-500' : 'text-zinc-600'}`}>+{readerPoints}</div>
                                     </div>
                                 </div>
                             </div>

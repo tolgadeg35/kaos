@@ -26,7 +26,8 @@ export const LobbyScreen: React.FC = () => {
     dispatch({ type: 'REMOVE_PLAYER', payload: id });
   };
 
-  const isGameEnabled = (id: MiniGameType) => state.availableGames.includes(id);
+  // Check against selectedGameIds instead of availableGames which is used for the queue
+  const isGameEnabled = (id: MiniGameType) => state.selectedGameIds.includes(id);
 
   return (
     <div className="flex flex-col h-screen bg-zinc-950 text-white overflow-hidden relative">
@@ -76,7 +77,7 @@ export const LobbyScreen: React.FC = () => {
           onClick={() => setActiveTab('games')}
           className={`flex-1 max-w-[140px] py-3 rounded-xl font-bold text-sm tracking-wide transition-all border ${activeTab === 'games' ? 'bg-red-700 border-red-500 text-white shadow-[0_0_15px_rgba(220,38,38,0.4)]' : 'bg-zinc-900/50 border-zinc-800 text-zinc-500 hover:bg-zinc-800'}`}>
           {T.lobby.gamesTab}
-          <span className="block text-[10px] opacity-70">{state.availableGames.length} {T.lobby.selectedCount}</span>
+          <span className="block text-[10px] opacity-70">{state.selectedGameIds.length} {T.lobby.selectedCount}</span>
         </button>
       </div>
 

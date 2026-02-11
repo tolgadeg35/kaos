@@ -10,11 +10,14 @@ import {
 import { DEFAULT_PLAYERS, MINI_GAMES } from '../constants';
 import { shuffle } from '../services/matchingService';
 
+const allGames = Object.keys(MINI_GAMES).map(k => k as MiniGameType);
+
 const initialState: IGameState = {
   screen: ScreenType.LOBBY,
   language: 'TR', // Default language
   players: DEFAULT_PLAYERS,
-  availableGames: Object.keys(MINI_GAMES).map(k => k as MiniGameType),
+  selectedGameIds: allGames, // Default all selected
+  availableGames: allGames,
   currentGameId: null,
   phase: GamePhase.INSTRUCTION,
   roundOrder: [],
@@ -49,17 +52,22 @@ const gameReducer = (state: IGameState, action: GameAction): IGameState => {
         players: state.players.filter(p => p.id !== action.payload)
       };
 
-    case 'TOGGLE_GAME':
-      const isEnabled = state.availableGames.includes(action.payload);
+    case 'TOGGLE_GAME': {
+      const isEnabled = state.selectedGameIds.includes(action.payload);
+      const newSelection = isEnabled
+          ? state.selectedGameIds.filter(g => g !== action.payload)
+          : [...state.selectedGameIds, action.payload];
+      
       return {
         ...state,
-        availableGames: isEnabled
-          ? state.availableGames.filter(g => g !== action.payload)
-          : [...state.availableGames, action.payload]
+        selectedGameIds: newSelection,
+        availableGames: newSelection // Update available games in lobby to reflect selection
       };
+    }
 
     case 'START_GAME': {
-      const selectedGames = state.availableGames;
+      // Use selectedGameIds as the source of truth for generating the game queue
+      const selectedGames = state.selectedGameIds;
       const fixedEndGames = [MiniGameType.WAGER, MiniGameType.CHEAT_VOTE];
       const gamesToShuffle = selectedGames.filter(g => !fixedEndGames.includes(g));
       const shuffledGames = shuffle(gamesToShuffle);
@@ -74,7 +82,7 @@ const gameReducer = (state: IGameState, action: GameAction): IGameState => {
       return {
         ...state,
         screen: ScreenType.GAME_LOOP,
-        availableGames: shuffledGames,
+        availableGames: shuffledGames, // This will be consumed
         currentGameId: shuffledGames[0],
         phase: GamePhase.INSTRUCTION,
         roundOrder: initialRoundOrder,
@@ -124,7 +132,7 @@ const gameReducer = (state: IGameState, action: GameAction): IGameState => {
           MiniGameType.WAGER,
           MiniGameType.SUPERLATIVES,
           MiniGameType.TRIVIA,
-          MiniGameType.YES_NO // Added YES_NO here
+          MiniGameType.YES_NO
       ];
       const isMultiStage = state.currentGameId && multiStageGames.includes(state.currentGameId);
       
@@ -170,7 +178,7 @@ const gameReducer = (state: IGameState, action: GameAction): IGameState => {
                 MiniGameType.WAGER,
                 MiniGameType.SUPERLATIVES,
                 MiniGameType.TRIVIA,
-                MiniGameType.YES_NO // Added YES_NO here as well
+                MiniGameType.YES_NO
             ];
             const isMultiStageCheck = state.currentGameId && multiStageGamesCheck.includes(state.currentGameId);
 
@@ -213,8 +221,9 @@ const gameReducer = (state: IGameState, action: GameAction): IGameState => {
         return {
             ...initialState,
             language: state.language, // Keep selected language
-            players: state.players,
-            availableGames: state.availableGames
+            players: state.players.map(p => ({ ...p, score: 0 })), // Keep players but reset score
+            selectedGameIds: state.selectedGameIds, // Keep game selection from lobby
+            availableGames: state.selectedGameIds // Restore available games queue
         };
 
     default:

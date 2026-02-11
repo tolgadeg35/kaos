@@ -78,7 +78,14 @@ export const TEXTS = {
         strategy: "Strateji ve Bilgi",
         authorScore: "YAZAR PUANI",
         answerScore: "CEVAP PUANI",
-        nextGame: "SIRADAKİ OYUN"
+        nextGame: "SIRADAKİ OYUN",
+        results: {
+            majority: "Çoğunluk Bildi (+2)",
+            minority: "Azınlık Bildi (+1)",
+            everyone: "Herkes Bildi (-1)",
+            noOne: "Kimse Bilemedi (-1)",
+            noAnswers: "Cevap Yok"
+        }
       },
       whoDoYouKnow: {
         target: "HEDEFİN",
@@ -236,7 +243,14 @@ export const TEXTS = {
         strategy: "Strategy & Knowledge",
         authorScore: "AUTHOR SCORE",
         answerScore: "ANSWER SCORE",
-        nextGame: "NEXT GAME"
+        nextGame: "NEXT GAME",
+        results: {
+            majority: "Majority Knew (+2)",
+            minority: "Minority Knew (+1)",
+            everyone: "Everyone Knew (-1)",
+            noOne: "No One Knew (-1)",
+            noAnswers: "No Answers"
+        }
       },
       whoDoYouKnow: {
         target: "TARGET",
@@ -394,7 +408,14 @@ export const TEXTS = {
         strategy: "Strategie & Wissen",
         authorScore: "AUTOR PUNKTE",
         answerScore: "ANTWORT PUNKTE",
-        nextGame: "NÄCHSTES SPIEL"
+        nextGame: "NÄCHSTES SPIEL",
+        results: {
+            majority: "Mehrheit wusste es (+2)",
+            minority: "Minderheit wusste es (+1)",
+            everyone: "Jeder wusste es (-1)",
+            noOne: "Niemand wusste es (-1)",
+            noAnswers: "Keine Antworten"
+        }
       },
       whoDoYouKnow: {
         target: "ZIEL",

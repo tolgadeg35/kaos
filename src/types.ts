@@ -66,6 +66,7 @@ export interface IGameState {
   players: IPlayer[];
   
   // Game Loop Control
+  selectedGameIds: MiniGameType[]; // Persisted selection from Lobby
   availableGames: MiniGameType[]; // Queue of games to play
   currentGameId: MiniGameType | null;
   phase: GamePhase;
